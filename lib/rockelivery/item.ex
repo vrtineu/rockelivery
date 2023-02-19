@@ -6,7 +6,7 @@ defmodule Rockelivery.Item do
   @primary_key {:id, :binary_id, autogenerate: true}
 
   @required_params [:category, :description, :price, :photo]
-  @items_categories [:pizza, :drink, :dessert]
+  @items_categories [:food, :drink, :dessert]
 
   @derive {Jason.Encoder, only: @required_params ++ [:id]}
 
