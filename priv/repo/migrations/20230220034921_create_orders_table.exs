@@ -3,7 +3,7 @@ defmodule Rockelivery.Repo.Migrations.CreateOrdersTable do
 
   def change do
     create table(:orders) do
-      add :adress, :string
+      add :address, :string
       add :comments, :string
       add :payment_method, :payment_method
       add :user_id, references(:users, type: :binary_id)
