@@ -8,10 +8,10 @@ defmodule Rockelivery.User do
 
   @primary_key {:id, :binary_id, autogenerate: true}
 
-  @required_params [:name, :email, :age, :address, :cep, :cpf, :password, :city, :uf]
+  @required_params [:name, :email, :age, :address, :cep, :cpf, :password]
   @update_params @required_params -- [:password]
 
-  @derive {Jason.Encoder, only: @required_params ++ [:id, :inserted_at, :updated_at]}
+  @derive {Jason.Encoder, only: @required_params ++ [:id, :inserted_at, :updated_at, :city, :uf]}
 
   schema "users" do
     field :address, :string
@@ -30,6 +30,8 @@ defmodule Rockelivery.User do
     timestamps()
   end
 
+  def build(changeset), do: apply_action(changeset, :create)
+
   def changeset(params) do
     %__MODULE__{}
     |> changes(@required_params, params)
@@ -42,7 +44,7 @@ defmodule Rockelivery.User do
 
   defp changes(struct, fields, params) do
     struct
-    |> cast(params, fields)
+    |> cast(params, fields ++ [:city, :uf])
     |> validate_required(fields)
     |> validate_length(:password, min: 6)
     |> validate_length(:cep, min: 8)
