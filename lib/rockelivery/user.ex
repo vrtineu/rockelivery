@@ -8,7 +8,7 @@ defmodule Rockelivery.User do
 
   @primary_key {:id, :binary_id, autogenerate: true}
 
-  @required_params [:name, :email, :age, :address, :cep, :cpf, :password]
+  @required_params [:name, :email, :age, :address, :cep, :cpf, :password, :city, :uf]
   @update_params @required_params -- [:password]
 
   @derive {Jason.Encoder, only: @required_params ++ [:id, :inserted_at, :updated_at]}
@@ -17,11 +17,13 @@ defmodule Rockelivery.User do
     field :address, :string
     field :age, :integer
     field :cep, :string
+    field :city, :string
     field :cpf, :string
     field :email, :string
     field :name, :string
     field :password, :string, virtual: true
     field :password_hash, :string
+    field :uf, :string
 
     has_many :orders, Order
 
