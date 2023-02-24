@@ -2,7 +2,7 @@ defmodule Rockelivery.Users.Create do
   alias Ecto.Changeset
 
   alias Rockelivery.{Error, Repo, User}
-  alias Rockelivery.ViaCep.{Client, Response}
+  alias Rockelivery.ViaCep.Response
 
   def call(params) do
     changeset = User.changeset(params)
@@ -10,7 +10,7 @@ defmodule Rockelivery.Users.Create do
     cep = Map.get(params, "cep")
 
     with {:ok, %User{}} <- User.build(changeset),
-         {:ok, %Response{} = cep_response} <- Client.get_cep_info(cep),
+         {:ok, %Response{} = cep_response} <- client().get_cep_info(cep),
          {:ok, %{} = user} <- merge_cep_info(changeset, cep_response),
          {:ok, %User{} = user_created} <- Repo.insert(user) do
       {:ok, user_created}
@@ -25,5 +25,11 @@ defmodule Rockelivery.Users.Create do
      changeset
      |> Changeset.put_change(:city, city)
      |> Changeset.put_change(:uf, uf)}
+  end
+
+  defp client do
+    :rockelivery
+    |> Application.fetch_env!(__MODULE__)
+    |> Keyword.get(:via_cep_adapter)
   end
 end
