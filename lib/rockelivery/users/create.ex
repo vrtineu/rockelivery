@@ -1,8 +1,8 @@
 defmodule Rockelivery.Users.Create do
   alias Ecto.Changeset
+
   alias Rockelivery.{Error, Repo, User}
-  alias Rockelivery.ViaCep.Client
-  alias Rockelivery.ViaCep.Response
+  alias Rockelivery.ViaCep.{Client, Response}
 
   def call(%{"cep" => cep} = params) do
     changeset = User.changeset(params)
