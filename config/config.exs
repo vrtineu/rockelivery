@@ -14,6 +14,10 @@ config :rockelivery,
 # ViaCep adapter
 config :rockelivery, Rockelivery.Users.Create, via_cep_adapter: Rockelivery.ViaCep.Client
 
+config :rockelivery, RockeliveryWeb.Auth.Guardian,
+  issuer: "Rockelivery",
+  secret_key: "ocK+mVldQ/Glu9EP+/oIdWBvHRwFs+ku3o7kidfdOJ7g+YI7sO478Z2LRuUcoJX5"
+
 config :rockelivery, Rockelivery.Repo,
   migration_primary_key: [type: :binary_id],
   migration_foreign_key: [type: :binary_id]
