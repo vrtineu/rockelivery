@@ -13,6 +13,8 @@ defmodule RockeliveryWeb.Router do
 
     resources "/users", UsersController, except: [:new, :edit]
 
+    post "/users/signin", UsersController, :signin
+
     post "/items", ItemsController, :create
 
     post "/orders", OrdersController, :create
