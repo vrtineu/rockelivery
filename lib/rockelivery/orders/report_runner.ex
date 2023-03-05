@@ -5,12 +5,13 @@ defmodule Rockelivery.Orders.ReportRunner do
 
   alias Rockelivery.Orders.Report
 
-  def start_link do
+  def start_link(_) do
     GenServer.start_link(__MODULE__, :ok)
   end
 
   @impl true
   def init(state) do
+    Logger.info("Starting report runner...")
     schedule_report_generation()
     {:ok, state}
   end
