@@ -22,7 +22,7 @@ defmodule Rockelivery.Orders.ValidateAndMultiplyItems do
     end
   end
 
-  defp multiply_items({:error, reason}, _items), do: {:error, reason}
+  defp multiply_items({:error, _reason} = error, _items), do: error
 
   defp multiply_items({:ok, mapped_items}, params_items) do
     items_multiplied =
