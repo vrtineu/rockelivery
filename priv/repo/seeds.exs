@@ -12,6 +12,8 @@
 
 alias Rockelivery.{Repo, User, Item, Order}
 
+IO.puts("Seeding database...")
+
 user = %User{
   age: 25,
   address: "Rua das Flores, 123",
@@ -26,22 +28,24 @@ user = %User{
 
 %User{id: user_id} = Repo.insert!(user)
 
+IO.puts("User created!")
+
 item1 = %Item{
-  category: "food",
+  category: :food,
   description: "Pizza",
   price: Decimal.new("39.90"),
   photo: "/priv/photos/pizza.jpg"
 }
 
 item2 = %Item{
-  category: "food",
+  category: :food,
   description: "Hamburguer",
   price: Decimal.new("19.90"),
   photo: "/priv/photos/hamburguer.jpg"
 }
 
 item3 = %Item{
-  category: "drink",
+  category: :drink,
   description: "Coca-cola",
   price: Decimal.new("5.90"),
   photo: "/priv/photos/coca-cola.jpg"
@@ -50,6 +54,8 @@ item3 = %Item{
 Repo.insert!(item1)
 Repo.insert!(item2)
 Repo.insert!(item3)
+
+IO.puts("Items created!")
 
 order = %Order{
   user_id: user_id,
@@ -60,3 +66,5 @@ order = %Order{
 }
 
 Repo.insert!(order)
+IO.puts("Order created!")
+IO.puts("Database seeded!")
